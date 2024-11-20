@@ -151,11 +151,31 @@ namespace MathQuiz
                 quotient.Value = dividend / divisor;
                 startButton.Enabled = true;
             }
+            if (timeLeft <= 5)
+            {
+                timeLabel.BackColor = Color.Red;
+            }
+            else
+            {
+                timeLabel.BackColor = DefaultBackColor;
+            }
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
 
+        }
+
+        private void answer_Enter(object sender, EventArgs e)
+        {
+            // Select the whole answer in the NumericUpDown control.
+            NumericUpDown answerBox = sender as NumericUpDown;
+
+            if (answerBox != null)
+            {
+                int lengthOfAnswer = answerBox.Value.ToString().Length;
+                answerBox.Select(0, lengthOfAnswer);
+            }
         }
     }
 }
