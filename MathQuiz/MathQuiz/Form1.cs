@@ -113,9 +113,31 @@ namespace MathQuiz
                 && (minuend - subtrahend == difference.Value)
                 && (multiplicand * multiplier == product.Value)
                 && (dividend / divisor == quotient.Value))
+            {
+                // Play the sound for a correct answer 
+                playCorrectAnswerSound();
                 return true;
+            }
             else
+            {
                 return false;
+            }
+           
+        }
+
+        private void playCorrectAnswerSound()
+        {
+            try
+            {
+                System.Media.SoundPlayer player = new System.Media.SoundPlayer("mixkit-correct-answer-tone-2870.wav");
+
+                player.Play();
+            }
+            catch (Exception ex) 
+            {
+                MessageBox.Show("Error playing sound: " +  ex.Message);
+
+            }
         }
 
         private void timer1_Tick(object sender, EventArgs e)
