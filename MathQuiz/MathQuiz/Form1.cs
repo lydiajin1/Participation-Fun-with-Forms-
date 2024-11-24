@@ -58,6 +58,14 @@ namespace MathQuiz
         /// </summary>
         public void StartTheQuiz()
         {
+
+            // Event handlers to play a sound when the correct answer is entered 
+            sum.ValueChanged += new EventHandler(answer_ValueChanged);
+            difference.ValueChanged += new EventHandler(answer_ValueChanged);
+            product.ValueChanged += new EventHandler(answer_ValueChanged);
+            quotient.ValueChanged += new EventHandler(answer_ValueChanged);
+
+
             // Fill in the addition problem.
             // Generate two random numbers to add.
             // Store the values in the variables 'addend1' and 'addend2'.
@@ -125,11 +133,40 @@ namespace MathQuiz
            
         }
 
+        // Checks each answer and plays correct answer sound after each correct answer is entered 
+        private void answer_ValueChanged(object sender, EventArgs e)
+        {
+            NumericUpDown answerBox = sender as NumericUpDown;
+
+            if (answerBox == sum && addend1 + addend2 == sum.Value)
+            {
+                playCorrectAnswerSound();
+                sum.ReadOnly = true;
+            } 
+            else if (answerBox == difference && minuend - subtrahend == difference.Value) 
+            {
+                playCorrectAnswerSound();
+                difference.ReadOnly = true;
+            }
+            else if (answerBox == product && multiplicand * multiplier == product.Value)
+            {
+                playCorrectAnswerSound();
+                product.ReadOnly = true;
+            }
+            else if (answerBox == quotient &&  dividend / divisor == quotient.Value)
+            {
+                playCorrectAnswerSound();
+                quotient.ReadOnly = true;
+            }
+        }
+
+
+        // Uploads the Correct Answer sound file
         private void playCorrectAnswerSound()
         {
             try
             {
-                System.Media.SoundPlayer player = new System.Media.SoundPlayer("mixkit-correct-answer-tone-2870.wav");
+                System.Media.SoundPlayer player = new System.Media.SoundPlayer(@"Z:\IGMProfile\Desktop\Participation-Fun-with-Forms-\MathQuiz\MathQuiz\mixkit-correct-answer-tone-2870.wav");
 
                 player.Play();
             }
